@@ -18,7 +18,7 @@ To build 4kb page size app(Default):
 # Note: don't forgot to install docker.
 
 cd <your-workspace-path>
-git clone https://github.com/kikitte/GDAL4Android.git
+git clone https://github.com/MDmitryM/GDAL4Android.git
 cd GDAL4Android
 
 # this step produces an image named gdal4android_builder_img
@@ -53,7 +53,7 @@ To build 16kb page size app:
 # Note: don't forgot to install docker.
 
 cd <your-workspace-path>
-git clone https://github.com/kikitte/GDAL4Android.git
+git clone https://github.com/MDmitryM/GDAL4Android.git
 cd GDAL4Android
 
 # this step produces an image named gdal4android_builder_img
