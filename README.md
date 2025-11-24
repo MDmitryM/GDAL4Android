@@ -22,7 +22,7 @@ git clone https://github.com/MDmitryM/GDAL4Android.git
 cd GDAL4Android
 
 # this step produces an image named gdal4android_builder_img
-docker build -platform linux/amd64 -t gdal4android_builder_img - < docker/Dockerfile
+docker build --platform linux/amd64 -t gdal4android_builder_img - < docker/Dockerfile
 
 # this step runs a container so you can build GDAL4Android within it.
 docker run -it --name gdal4android_builder -v .:/root/GDAL4Android gdal4android_builder_img
@@ -57,7 +57,7 @@ git clone https://github.com/MDmitryM/GDAL4Android.git
 cd GDAL4Android
 
 # this step produces an image named gdal4android_builder_img
-docker build -platform linux/amd64 -t gdal4android_builder_img_16kb - < docker/Dockerfile_16kb
+docker build --platform linux/amd64 -t gdal4android_builder_img_16kb - < docker/Dockerfile_16kb
 
 # this step runs a container so you can build GDAL4Android within it.
 docker run -it --name gdal4android_builder_16kb -v .:/root/GDAL4Android gdal4android_builder_img_16kb
