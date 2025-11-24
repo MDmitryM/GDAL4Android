@@ -118,4 +118,4 @@ cd <GDAL4Android root directory>
 
 https://github.com/OSGeo/gdal/blob/master/.github/workflows/android_cmake/start.sh
 
-https://github.com/paamand/GDAL4Android
+https://github.com/kikitte/GDAL4Android
