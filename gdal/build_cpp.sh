@@ -167,8 +167,8 @@ function build_for_target() {
 
     # download file if necessary
     local SQLITE=sqlite-autoconf-3420000
-    local PROJ=proj-9.2.1
-    local GDAL=gdal-3.7.0
+    local PROJ=proj-9.6.0
+    local GDAL=gdal-3.11.0
     local EXPAT=expat-2.5.0
     local ICONV=libiconv-1.17
     local SQLITE_TARBALL=$SQLITE.tar.gz
@@ -181,10 +181,10 @@ function build_for_target() {
       wget https://www.sqlite.org/2023/sqlite-autoconf-3420000.tar.gz -O $SQLITE_TARBALL
     fi
     if [ ! -f "$PROJ_TARBALL" ]; then
-      wget https://github.com/OSGeo/PROJ/releases/download/9.2.1/proj-9.2.1.tar.gz -O $PROJ_TARBALL
+      wget https://github.com/OSGeo/PROJ/releases/download/9.6.0/proj-9.6.0.tar.gz -O $PROJ_TARBALL
     fi
     if [ ! -f "$GDAL_TARBALL" ]; then
-      wget https://github.com/OSGeo/gdal/releases/download/v3.7.0/gdal-3.7.0.tar.gz -O $GDAL_TARBALL
+      wget https://github.com/OSGeo/gdal/releases/download/v3.11.0/gdal-3.11.0.tar.gz -O $GDAL_TARBALL
     fi
     if [ ! -f "$EXPAT_TARBALL" ]; then
       wget https://github.com/libexpat/libexpat/releases/download/R_2_5_0/expat-2.5.0.tar.gz -O $EXPAT_TARBALL
