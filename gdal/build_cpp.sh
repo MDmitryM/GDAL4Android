@@ -125,6 +125,38 @@ function build_gdal() {
 
   echo "$INSTALL_DIR/lib/pkgconfig"
 
+  # Определяем пути к Java заголовкам
+  local JAVA_INCLUDE_PATH_VAL="$JAVA_HOME/include"
+  local JAVA_INCLUDE_PATH2_VAL=""
+  
+  # Ищем подкаталог с jni_md.h (обычно linux для Linux систем)
+  if [ -f "$JAVA_INCLUDE_PATH_VAL/linux/jni_md.h" ]; then
+    JAVA_INCLUDE_PATH2_VAL="$JAVA_INCLUDE_PATH_VAL/linux"
+  elif [ -f "$JAVA_INCLUDE_PATH_VAL/amd64/jni_md.h" ]; then
+    JAVA_INCLUDE_PATH2_VAL="$JAVA_INCLUDE_PATH_VAL/amd64"
+  elif [ -f "$JAVA_INCLUDE_PATH_VAL/x86_64/jni_md.h" ]; then
+    JAVA_INCLUDE_PATH2_VAL="$JAVA_INCLUDE_PATH_VAL/x86_64"
+  elif [ -f "$JAVA_INCLUDE_PATH_VAL/jni_md.h" ]; then
+    # Если jni_md.h находится прямо в include
+    JAVA_INCLUDE_PATH2_VAL="$JAVA_INCLUDE_PATH_VAL"
+  else
+    # Если не найден файл, пробуем стандартные подкаталоги
+    if [ -d "$JAVA_INCLUDE_PATH_VAL/linux" ]; then
+      JAVA_INCLUDE_PATH2_VAL="$JAVA_INCLUDE_PATH_VAL/linux"
+    elif [ -d "$JAVA_INCLUDE_PATH_VAL/amd64" ]; then
+      JAVA_INCLUDE_PATH2_VAL="$JAVA_INCLUDE_PATH_VAL/amd64"
+    elif [ -d "$JAVA_INCLUDE_PATH_VAL/x86_64" ]; then
+      JAVA_INCLUDE_PATH2_VAL="$JAVA_INCLUDE_PATH_VAL/x86_64"
+    else
+      # В крайнем случае используем сам include
+      JAVA_INCLUDE_PATH2_VAL="$JAVA_INCLUDE_PATH_VAL"
+    fi
+  fi
+  
+  echo "JAVA_HOME: $JAVA_HOME"
+  echo "JAVA_INCLUDE_PATH: $JAVA_INCLUDE_PATH_VAL"
+  echo "JAVA_INCLUDE_PATH2: $JAVA_INCLUDE_PATH2_VAL"
+
   PKG_CONFIG_LIBDIR=$INSTALL_DIR/lib/pkgconfig
   cmake -S . -B $BUILD_DIR \
    -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR \
@@ -149,7 +181,9 @@ function build_gdal() {
    -DBUILD_PYTHON_BINDINGS=OFF \
    -DBUILD_CSHARP_BINDINGS=OFF \
    -DGDAL_USE_ICONV=ON \
-   -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
+   -DCMAKE_BUILD_TYPE=${BUILD_TYPE} \
+   -DJAVA_INCLUDE_PATH=$JAVA_INCLUDE_PATH_VAL \
+   -DJAVA_INCLUDE_PATH2=$JAVA_INCLUDE_PATH2_VAL
 
 
   cmake --build $BUILD_DIR --parallel $BUILD_THREADS --target install
