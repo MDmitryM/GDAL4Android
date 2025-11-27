@@ -293,7 +293,12 @@ function build_for_target() {
     mkdir -p $ABI_JNI_DIR
     cp $INSTALL_DIR/lib/*.so $ABI_JNI_DIR
 
-    cp $INSTALL_DIR/share/java/*.so $ABI_JNI_DIR
+    # Copy Java JNI library (libgdalalljni.so) from lib/jni/ directory
+    if [ -f "$INSTALL_DIR/lib/jni/libgdalalljni.so" ]; then
+      cp $INSTALL_DIR/lib/jni/libgdalalljni.so $ABI_JNI_DIR
+    elif [ -d "$INSTALL_DIR/lib/jni" ]; then
+      cp $INSTALL_DIR/lib/jni/*.so $ABI_JNI_DIR 2>/dev/null || true
+    fi
 
     local LIBS_DIR=$SOURCE_DIR/../libs
     mkdir -p $LIBS_DIR
